@@ -1,0 +1,61 @@
+
+<html >
+        <head>
+                ----------------------------------BALLS IN HOLES------------------------------------
+        </head>
+        <body>
+        <svg width=1000 height=1000 >
+
+                <defs>        <!-- blue balls colour  -->
+                    <linearGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                        <stop offset="0%" stop-color=#80dfff stop-opacity="1" />
+                        <stop offset="100%" stop-color=#25258e stop-opacity="1" />
+                    </linearGradient>
+                </defs>
+
+                <defs>        <!-- green balls colour  -->
+                    <linearGradient id="grad2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                        <stop offset="0%" stop-color= #a6ff4d stop-opacity="1" />
+                        <stop offset="100%" stop-color=#009933 stop-opacity="1" />
+                    </linearGradient>
+                </defs>
+
+                <rect width="60%" height="80%" fill="grey" />  <!-- grey box -->
+
+                <circle cx="350" cy="100" r="50" fill= "white" stroke="black" />  <!-- white circles -->
+                <circle cx="450" cy="200" r="50" fill= "white" stroke="black" />
+                <circle cx="550" cy="500" r="50" fill= "white" stroke="black" />
+
+                <g>
+                        <circle cx="50" cy="50" r="50"fill= "url(#grad1)"  id="one" />  <!-- blue balls -->
+                        <circle cx="150" cy="50" r="50" fill= "url(#grad1)" id="two" />
+                        <circle cx="250" cy="50" r="50" fill= "url(#grad1)" id="three"/>
+                </g>
+                         <!-- <circle cx="250" cy="50" r="50"fill= "url(#grad2)"  transform='rotate(90 150 160)' />  <!-- green balls after click  -->
+                        <!--<circle cx="250" cy="250" r="50" fill= "url(#grad2)" transform='rotate(90 150 160)' />  <!-- rotate look for vertical fade -->
+                        <!--<circle cx="450" cy="250" r="50" fill= "url(#grad2)" transform='rotate(90 150 160)' />  -->
+
+        </svg>
+
+
+        <script>
+
+            var one = document.getElementById("one");
+            one.addEventListener("click", () => {    // on click ball 1
+                one.style.fill = "url(#grad2)";
+            });
+
+            var two = document.getElementById("two");  // on click ball 2
+            two.addEventListener("click", () => {
+                two.style.fill = "url(#grad2)";
+            });
+
+            var three = document.getElementById("three");    // on click ball 3
+            three.addEventListener("click", () => {
+                three.style.fill = "url(#grad2)";
+            });
+        </script>
+
+
+        </body>
+</html>
