@@ -3,58 +3,116 @@
         <head>
                 ----------------------------------BALLS IN HOLES------------------------------------
         </head>
-        <body>
-        <svg width=1000 height=1000 >
+        <body >
 
-                <defs>        <!-- blue balls colour  -->
-                    <linearGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                        <stop offset="0%" stop-color=#80dfff stop-opacity="1" />
-                        <stop offset="100%" stop-color=#25258e stop-opacity="1" />
-                    </linearGradient>
-                </defs>
+                <svg width=1000 height=1000 >
 
-                <defs>        <!-- green balls colour  -->
-                    <linearGradient id="grad2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-                        <stop offset="0%" stop-color= #a6ff4d stop-opacity="1" />
-                        <stop offset="100%" stop-color=#009933 stop-opacity="1" />
-                    </linearGradient>
-                </defs>
+                        <defs>        <!-- blue balls colour  -->
+                            <linearGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color=#80dfff stop-opacity="1" />
+                                <stop offset="100%" stop-color=#25258e stop-opacity="1" />
+                            </linearGradient>
+                        </defs>
 
-                <rect width="60%" height="80%" fill="grey" />  <!-- grey box -->
+                        <defs>        <!-- green balls colour  -->
+                            <linearGradient id="grad2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color= #a6ff4d stop-opacity="1" />
+                                <stop offset="100%" stop-color=#009933 stop-opacity="1" />
+                            </linearGradient>
+                        </defs>
 
-                <circle cx="350" cy="100" r="50" fill= "white" stroke="black" />  <!-- white circles -->
-                <circle cx="450" cy="200" r="50" fill= "white" stroke="black" />
-                <circle cx="550" cy="500" r="50" fill= "white" stroke="black" />
+                        <rect width="60%" height="80%" fill="grey" />  <!-- grey box -->
 
-                <g>
-                        <circle cx="50" cy="50" r="50"fill= "url(#grad1)"  id="one" />  <!-- blue balls -->
-                        <circle cx="150" cy="50" r="50" fill= "url(#grad1)" id="two" />
-                        <circle cx="250" cy="50" r="50" fill= "url(#grad1)" id="three"/>
-                </g>
-                         <!-- <circle cx="250" cy="50" r="50"fill= "url(#grad2)"  transform='rotate(90 150 160)' />  <! green balls after click  -->
-                        <!--<circle cx="250" cy="250" r="50" fill= "url(#grad2)" transform='rotate(90 150 160)' />  <! rotate look for vertical fade -->
-                        <!--<circle cx="450" cy="250" r="50" fill= "url(#grad2)" transform='rotate(90 150 160)' />  -->
+                        <circle cx="150" cy="200" r="50" fill= #FFFFFF stroke="black" />  <!-- white circles -->
+                        <circle cx="450" cy="400" r="50" fill= #FFFFFF stroke="black" />
+                        <circle cx="300" cy="600" r="50" fill= #FFFFFF stroke="black" />
 
-        </svg>
+                        <g>
+                                <circle cx="50" cy="50" r="50" fill= "url(#grad1)"  id="one" />  <!-- blue balls -->
+                                <circle cx="150" cy="50" r="50" fill= "url(#grad1)" id="two" />
+                                <circle cx="250" cy="50" r="50" fill= "url(#grad1)" id="three"/>
+                        </g>
+                                <!-- <circle cx="250" cy="50" r="50"fill= "url(#grad2)"  transform='rotate(90 150 160)' />  <! green balls after click  -->
+                                <!--<circle cx="250" cy="250" r="50" fill= "url(#grad2)" transform='rotate(90 150 160)' />  <! rotate look for vertical fade -->
+                                <!--<circle cx="450" cy="250" r="50" fill= "url(#grad2)" transform='rotate(90 150 160)' />  -->
+
+                </svg>
 
 
-        <script>
+                <script>
 
-            var one = document.getElementById("one");
-            one.addEventListener("click", () => {    // on click ball 1
-                one.style.fill = "url(#grad2)";
-            });
+                   var id=" ";  // id s so we can change the balls
+                   var x ,y;
+                   var flag=0;
 
-            var two = document.getElementById("two");  // on click ball 2
-            two.addEventListener("click", () => {
-                two.style.fill = "url(#grad2)";
-            });
+                var one = document.getElementById("one"); // on click ball 1
+                var two = document.getElementById("two");  // on click ball 2
+                var three = document.getElementById("three");    // on click ball 3
+                    one.addEventListener("click", () => {    // on click ball 1
+                        flag=1;
+                        one.style.fill = "url(#grad2)";  // change the style on click
+                        if (flag==1){     // use to make other balls turn blue when clicked
+                                two.style.fill = "url(#grad1)";
+                                three.style.fill = "url(#grad1)";
+                        }
+                        id="one";
+                        y =parseInt(document.getElementById(id).getAttribute("cy"));   // initialize x used to add the new position
+                        x =parseInt(document.getElementById(id).getAttribute("cx"));   // initialize y used to add the new position
+                    });
 
-            var three = document.getElementById("three");    // on click ball 3
-            three.addEventListener("click", () => {
-                three.style.fill = "url(#grad2)";
-            });
-        </script>
+                    two.addEventListener("click", () => {  // on click ball two
+                        flag=1;
+                        two.style.fill = "url(#grad2)";// change the style on click
+                        if (flag==1){ // use to make other balls turn blue when clicked
+                                one.style.fill = "url(#grad1)";
+                                three.style.fill = "url(#grad1)";
+                        }
+                        id="two";
+                        y =parseInt(document.getElementById(id).getAttribute("cy"));   // initialize x used to add the new position
+                        x =parseInt(document.getElementById(id).getAttribute("cx"));   // initialize y used to add the new position
+                    });
+
+                    three.addEventListener("click", () => { // on click ball 3
+                        flag=1;
+                        three.style.fill = "url(#grad2)";// change the style on click
+                        if (flag==1){    // use to make other balls turn blue when clicked
+                                two.style.fill = "url(#grad1)";
+                                 one.style.fill = "url(#grad1)";
+                        }
+                        id="three";
+                        y =parseInt(document.getElementById(id).getAttribute("cy"));   // initialize x used to add the new position
+                        x =parseInt(document.getElementById(id).getAttribute("cx"));   // initialize y used to add the new position
+                    });
+
+
+
+                    window.addEventListener('keydown',(e)=>{
+                            if (e.keyCode === 37 ){ // left arrow
+                                    x = x - 10  ;
+                                    document.getElementById(id).setAttribute('cx',x);
+                            }
+                            if (e.keyCode === 39){ // right arrow
+                                    x = x + 10  ;
+                                    document.getElementById(id).setAttribute('cx',x);
+                            }
+                            if (e.keyCode === 38){ //up arrow
+                                    y = y - 10  ;
+                                    document.getElementById(id).setAttribute('cy',y);
+                            }
+                            if (e.keyCode === 40){ //down arrow
+                                y = y + 10  ;
+                                document.getElementById(id).setAttribute('cy',y);
+                            }
+                    });
+
+
+                window.addEventListener("keydown", function(e) {  // stop the whole browser from scrolling
+                        if([ 37, 38, 39, 40].indexOf(e.keyCode) > -1) {// space and arrow keys
+                            e.preventDefault();
+                        }
+                }, false);
+
+                </script>
 
 
         </body>
