@@ -1,0 +1,177 @@
+<html>
+
+<head>
+        <p id="head">
+                ----------------------------------BALLS IN HOLES------------------------------------
+        </p>
+</head>
+
+<body>
+
+        <svg width=1000 height=1000>
+
+                <defs>
+                        <!-- blue balls colour  -->
+                        <linearGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color=#80dfff stop-opacity="1" />
+                                <stop offset="100%" stop-color=#25258e stop-opacity="1" />
+                        </linearGradient>
+                </defs>
+
+                <defs>
+                        <!-- green balls colour  -->
+                        <linearGradient id="grad2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color=#a6ff4d stop-opacity="1" />
+                                <stop offset="100%" stop-color=#009933 stop-opacity="1" />
+                        </linearGradient>
+                </defs>
+
+                <defs>
+                        <!-- red balls colour  for final position -->
+                        <linearGradient id="grad3" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color=#cc5200 stop-opacity="1" />
+                                <stop offset="100%" stop-color=#b30000 stop-opacity="1" />
+                        </linearGradient>
+                </defs>
+
+                <rect width="600" height="800" fill="grey" /> <!-- grey box -->
+
+                <circle cx="150" cy="200" r="50" fill=#FFFFFF stroke="black" class="white" /> <!-- white circles -->
+                <circle cx="450" cy="400" r="50" fill=#FFFFFF stroke="black" class="white" />
+                <circle cx="300" cy="600" r="50" fill=#FFFFFF stroke="black" class="white" />
+
+                <g>
+                        <circle cx="50" cy="50" r="50" fill="url(#grad1)" id="one" /> <!-- blue balls -->
+                        <circle cx="150" cy="50" r="50" fill="url(#grad1)" id="two" />
+                        <circle cx="250" cy="50" r="50" fill="url(#grad1)" id="three" />
+                </g>
+                <!-- <circle cx="250" cy="50" r="50"fill= "url(#grad2)"  transform='rotate(90 150 160)' />  <! green balls after click  -->
+                <!--<circle cx="250" cy="250" r="50" fill= "url(#grad2)" transform='rotate(90 150 160)' />  <! rotate look for vertical fade -->
+                <!--<circle cx="450" cy="250" r="50" fill= "url(#grad2)" transform='rotate(90 150 160)' />  -->
+
+        </svg>
+
+
+        <script>
+                var id = ""; // id s so we can change the balls
+                var x, y;
+                var flag = 0;
+                var ballsIds = ['one', 'two', 'three'];
+                var rightBalls = [];
+                var count = 0;
+
+                function ballClicked(ball) {
+                        if (rightBalls.indexOf(ball.id) == -1) {
+                                setBall(ball);
+                                y = parseInt(ball.getAttribute("cy")); // initialize x used to add the new position
+                                x = parseInt(ball.getAttribute("cx")); // initialize y used to add the new position
+                        }
+
+                }
+
+                function setBall(ball) {
+
+                        length = ballsIds.length;
+
+                        for (i = 0; i < length; i++) {
+
+                                el = document.querySelector('#' + ballsIds[i]);
+
+                                if (ball.id == ballsIds[i]) {
+                                        el.style.fill = "url(#grad2)"; // change the style on click
+                                } else if (rightBalls.indexOf(ballsIds[i]) == -1) {
+                                        el.style.fill = "url(#grad1)";
+                                }
+
+                        }
+
+                        id = ball.id;
+                }
+
+                var one = document.getElementById("one"); // on click ball 1
+                var two = document.getElementById("two"); // on click ball 2
+                var three = document.getElementById("three"); // on click ball 3
+                one.addEventListener("click", () => { // on click ball 1
+                        ballClicked(one);
+                });
+
+                two.addEventListener("click", () => { // on click ball two
+                        ballClicked(two);
+                });
+
+                three.addEventListener("click", () => { // on click ball 3
+                        ballClicked(three);
+                });
+
+
+
+                window.addEventListener('keydown', (e) => {
+                        if (id == "") {
+                                return false;
+                        }
+                        //if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) { // space and arrow keys
+                        //        e.preventDefault();
+                        //}
+
+                        currentBall = document.querySelector('#' + id);
+
+                        if (e.keyCode === 37) { // left arrow
+                                if (x > 50) {
+                                        x = x - 10;
+                                        currentBall.setAttribute('cx', x);
+                                }
+                        }
+                        if (e.keyCode === 39) { // right arrow
+                                if (x < 550) {
+                                        x = x + 10;
+                                        currentBall.setAttribute('cx', x);
+                                }
+                        }
+                        if (e.keyCode === 38) { //up arrow
+                                if (y > 50) {
+                                        y = y - 10;
+                                        currentBall.setAttribute('cy', y);
+                                }
+                        }
+                        if (e.keyCode === 40) { //down arrow
+                                if (y < 750) {
+                                        y = y + 10;
+                                        currentBall.setAttribute('cy', y);
+                                }
+                        }
+
+                        whiteBalls = document.querySelectorAll('.white');
+                        length = whiteBalls.length;
+
+                        for (i = 0; i < length; i++) {
+                                if (currentBall.getAttribute('cx') == whiteBalls[i].getAttribute('cx') &&
+                                        currentBall.getAttribute('cy') == whiteBalls[i].getAttribute('cy')) {
+                                        rightBalls.push(id);
+                                        document.getElementById(id).style.fill = "url(#grad3)";
+                                        id = "";
+                                        count++;
+                                }
+                        }
+                        if (count === 3) { // den mpaineiiiiiiiiiii
+                                myFunction();
+                        }
+                }, false);
+
+
+
+                function myFunction() {
+                        var str = document.getElementById("head").innerHTML;
+                        var res = str.replace("BALLS IN HOLES", "GAME OVER");
+                        document.getElementById("head").innerHTML = res;
+                }
+                window.addEventListener("keydown", function(e) { // stop the whole browser from scrolling
+                        if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) { // space and arrow keys
+                                e.preventDefault();
+                        }
+                }, false);
+        </script>
+
+
+</body>
+
+</html>
