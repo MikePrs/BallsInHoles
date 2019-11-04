@@ -152,14 +152,14 @@
                                         count++;
                                 }
                         }
-                        if (count === 3) { // den mpaineiiiiiiiiiii
+                        if (count === 3) { // check to show game over 
                                 myFunction();
                         }
                 }, false);
 
 
 
-                function myFunction() {
+                function myFunction() { // replace head title 
                         var str = document.getElementById("head").innerHTML;
                         var res = str.replace("BALLS IN HOLES", "GAME OVER");
                         document.getElementById("head").innerHTML = res;
